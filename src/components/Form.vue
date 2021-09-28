@@ -3,14 +3,13 @@
     <label class="label" for="salary">Ваша зарплата в месяц</label>
     <input
       v-model="inputValue"
-      :class="['input', { invalid: inputInvalid || inputOnlyNumbers }]"
+      :class="['input', { invalid: inputInvalid }]"
       type="text"
       id="salary"
       placeholder="Введите данные"
     />
     <span v-if="inputInvalid" class="err">Поле обязательно для заполнения</span>
-    <span v-if="inputOnlyNumbers" class="err">Вводите только числа</span>
-    <button class="submit-btn" type="submit">Рассчитать</button>
+    <Button class="submit-btn" type="submit">Рассчитать</Button>
   </form>
 </template>
 
@@ -30,7 +29,6 @@ export default {
   data: () => ({
     inputValue: '',
     inputInvalid: false,
-    inputOnlyNumbers: false,
     show: true,
   }),
 
@@ -61,11 +59,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.form {
-  margin-bottom: 16px;
-}
-
 .label {
+  display: block;
   font-weight: 500;
   margin-bottom: 8px;
 }
@@ -79,6 +74,8 @@ export default {
   width: 100%;
   transition: all 0.3s;
   color: $Color1;
+  font-size: 14px;
+  line-height: 24px;
 
   &:hover {
     border-color: $Color1;
@@ -95,22 +92,6 @@ export default {
 
   &.invalid {
     border-color: $Color4;
-  }
-}
-
-.submit-btn {
-  display: block;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  color: $Color4;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0;
-  margin-top: 8px;
-
-  &:hover {
-    color: $Color7;
   }
 }
 

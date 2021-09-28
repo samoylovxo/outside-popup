@@ -17,12 +17,14 @@
       <div class="choise">
         <h2 class="choise-title">Что уменьшаем?</h2>
         <div @click="pickMode" class="btn-row">
-          <TagButton class="active" style="margin-right: 8px">Платеж</TagButton>
-          <TagButton>Срок</TagButton>
+          <Button class="active tag-btn" style="margin-right: 8px"
+            >Платеж</Button
+          >
+          <Button class="tag-btn">Срок</Button>
         </div>
       </div>
 
-      <AddButton>Добавить</AddButton>
+      <Button class="second-btn">Добавить</Button>
     </div>
   </div>
 </template>
@@ -86,7 +88,7 @@ export default {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 32px 16px 16px 16px;
+  padding: 32px 16px;
   position: relative;
 }
 
@@ -165,16 +167,11 @@ export default {
   .choise {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
   }
 
   .choise-title {
     margin-right: 32px;
     margin-bottom: 0;
-  }
-
-  .btn-row {
-    margin-right: 55px;
   }
 }
 

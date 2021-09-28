@@ -1,6 +1,6 @@
 <template>
   <div :class="['root', { open: isShow }]">
-    <Button @click="isShow = !isShow">Налоговый вычет</Button>
+    <Button class="main-btn" @click="isShow = !isShow">Налоговый вычет</Button>
     <Popup
       @close="(show) => (this.isShow = show)"
       :show="isShow"

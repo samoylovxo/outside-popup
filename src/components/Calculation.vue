@@ -8,7 +8,10 @@
           <label class="label" :for="item.id"
             >{{ item.sumPerYear }} рублей
             <span
-              >{{ item.id === 2 ? 'во' : 'в' }} {{ item.id }} год</span
+              >{{ item.id === 2 ? 'во' : 'в' }} {{ item.id }}-{{
+                getEndingsNumbers(item.id)
+              }}
+              год</span
             ></label
           >
         </li>
@@ -16,7 +19,12 @@
           <input class="checkbox" type="checkbox" id="remaining" />
           <label class="label" for="remaining"
             >{{ remaining }} рублей
-            <span>в {{ items.length + 1 }} год</span></label
+            <span
+              >в {{ items.length + 1 }}-{{
+                getEndingsNumbers(items.length + 1)
+              }}
+              год</span
+            ></label
           >
         </li>
       </ul>
@@ -40,7 +48,9 @@ export default {
     calculate(value) {
       this.sumPerYear = value * 12 * 0.13;
       this.valueFullYear = Math.floor(this.maxSum / this.sumPerYear);
-      this.remaining = this.maxSum - this.valueFullYear * this.sumPerYear;
+      this.remaining = new Intl.NumberFormat('ru-RU').format(
+        this.maxSum - this.valueFullYear * this.sumPerYear
+      );
 
       for (let i = 0; i < this.valueFullYear; i++) {
         this.items.push({
@@ -48,6 +58,27 @@ export default {
           sumPerYear: new Intl.NumberFormat('ru-RU').format(this.sumPerYear),
         });
       }
+    },
+
+    getEndingsNumbers(number) {
+      if (number === 60 || number === 70 || number === 80) return 'ый';
+
+      if (number === 40) return 'ой';
+
+      const numberPointDecimal = (number / 10).toString();
+      const decimal = +numberPointDecimal.substring(
+        numberPointDecimal.indexOf('.') + 1,
+        numberPointDecimal.length
+      );
+      const ojDecimal = [2, 6, 7, 8];
+      const yjDecimal = [1, 3, 4, 5, 9, 10];
+
+      if (number % 10 === 3 && number !== 13) return 'ий';
+
+      if (yjDecimal.includes(decimal) || (number >= 10 && number <= 21))
+        return 'ый';
+
+      if (ojDecimal.includes(decimal)) return 'ой';
     },
   },
 
@@ -64,6 +95,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.calculation {
+  margin-top: 16px;
+}
+
 .title {
   font-size: 14px;
   font-weight: 500;
